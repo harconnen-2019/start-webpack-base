@@ -1,0 +1,14 @@
+@import "mixins";
+@import "fonts";
+@import "vendor";
+@import "vars";
+@import "settings";
+
+body {
+  background: url("../img/logo-dune.png");
+  background: red;
+}
+
+#div {
+  transform: rotate(30deg);
+}
