@@ -25,6 +25,7 @@
 ```
 start-webpack-base
 ├── dist
+├── build
 ├── src
 │   ├── assets
 │   ├── fonts
