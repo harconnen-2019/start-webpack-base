@@ -4,6 +4,7 @@
 * используется препроцессор [SCSS](https://sass-lang.com/)
 * используется [Autoprefixer](https://github.com/postcss/autoprefixer)
 * после сборки CSS @media группируются в конце файла
+* Генерируется favicon, manifest  и др. [Favicons](https://github.com/jantimon/favicons-webpack-plugin)
 * используется [Webpack](https://webpack.js.org/) для сборки JavaScript-модулей
 * для CSS используется линтер [Stylelint](https://stylelint.io)
 * для форматирования JS установлен [Prettier](https://prettier.io)
@@ -56,6 +57,44 @@ start-webpack-base
 
 
 ## Рекомендации по использованию
+### Шрифты
+* шрифты находятся в папке ```src/fonts```
+    * используются [форматы](https://caniuse.com/#search=woff) ```.woff``` и ```.woff2```
+    * шрифты подключаются в файл ```src/scss/_fonts.scss```
+    * конвертировать локальные шрифты можно с помощью [данного сервиса](https://onlinefontconverter.com/)
+
+### Favicons : Набор иконок
+* Под все основные устройства и размеры иконки генерируются автоматически во время конечной сборки
+* В папке ```src/img``` логотип из которого формируются иконки ```logo-fav.png```
+* Если нужно другую картинку или другое расширение (можно .svg), то в файле ```webpack.config.js``` указать другой логотип
+```html
+57 logo: './img/logo-fav.png', 
+```
+* отключена опция генерации иконок для apple startup, для уменьшения кода
+```html
+69 appleStartup: false,
+```
+
+### Файл manifest.json
+* Генерируется автоматически
+* атрибуты для генерации берет из файла ```src/manifest.json```
+
+### Изображения
+* изображения находятся в папке ```src/img```
+    * изображения автоматически оптимизируются без потери качества
+    * автоматически генерируются изображения webp и avif
+    * для этого к изображению добавить ```?=webp``` или ```?=avif```
+
+```html
+<picture>
+    <source srcset="img/logo-dune.png?=webp" media="(max-width: 560px)" type="image/webp">
+    <source srcSet="img/logo-dune.png?=avif" type="image/avif" />
+    <source srcset="img/logo-dune.png" media="(max-width: 560px)">
+    <source srcset="img/logo-dune.png?=webp" type="image/webp">
+    <img src="img/logo-dune.png?=webp" decoding="async" loading="lazy" alt="описание" />
+</picture>
+```
+
 ### Подключение PUG
 * Препроцессор Pug для html установлен, но отключен
 * чтобы его включить в файле ```webpack.config.js``` раскомментировать:
@@ -73,20 +112,8 @@ template: path.resolve(__dirname, './src/index.html'),
 * файл ```index.html``` переименовать в ```index.pug```
 
 
-### Шрифты
-* шрифты находятся в папке ```src/fonts```
-    * используются [форматы](https://caniuse.com/#search=woff) ```.woff``` и ```.woff2```
-    * шрифты подключаются в файл ```src/scss/_fonts.scss```
-    * конвертировать локальные шрифты можно с помощью [данного сервиса](https://onlinefontconverter.com/)
-
-### Изображения
-* изображения находятся в папке ```src/img```
-    * изображения автоматически оптимизируются без потери качества
-
 ## Планируется добавить
 
 https://www.npmjs.com/package/svg-sprite-loader
 свг спрайты
 
-Фавиконка
-https://www.npmjs.com/package/favicons-webpack-plugin

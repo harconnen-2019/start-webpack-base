@@ -1,0 +1,8 @@
+{
+  "name": "Name",
+  "short_name": "Site name",
+  "description": "description Site",
+  "lang": "ru-RU",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

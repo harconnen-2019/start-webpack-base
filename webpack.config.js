@@ -6,7 +6,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
-// const {extendDefaultPlugins} = require('svgo');
+const { extendDefaultPlugins } = require('svgo');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
@@ -52,11 +53,57 @@ const plugins = () => {
                 },
             ],
         }),
+        new FaviconsWebpackPlugin({
+            logo: './img/logo-fav.png', // svg works too!
+            mode: 'webapp', // optional can be 'webapp', 'light' or 'auto' - 'auto' by default
+            devMode: 'light', // optional can be 'webapp' or 'light' - 'light' by default
+            manifest: './manifest.json',
+            favicons: {
+                // appName: 'my-app',
+                // appDescription: 'My awesome App',
+                developerName: 'Harconnen',
+                developerURL: null, // prevent retrieving from the nearest package.json
+                background: '#ddd',
+                theme_color: '#333',
+                icons: {
+                    appleStartup: false,
+                    coast: false,
+                    yandex: true,
+                },
+            },
+        }),
     ];
 
     if (isProd) {
         basePlugins.push(
             new ImageMinimizerPlugin({
+                exclude: /assets/,
+                generator: [
+                    {
+                        // You can apply generator using `?as=webp`, you can use any name and provide more options
+                        preset: 'webp',
+                        implementation: ImageMinimizerPlugin.squooshGenerate,
+                        options: {
+                            encodeOptions: {
+                                webp: {
+                                    quality: 90,
+                                },
+                            },
+                        },
+                    },
+                    {
+                        // You can apply generator using `?as=avif`, you can use any name and provide more options
+                        preset: 'avif',
+                        implementation: ImageMinimizerPlugin.squooshGenerate,
+                        options: {
+                            encodeOptions: {
+                                avif: {
+                                    cqLevel: 33,
+                                },
+                            },
+                        },
+                    },
+                ],
                 minimizer: {
                     implementation: ImageMinimizerPlugin.imageminMinify,
                     options: {
@@ -67,24 +114,12 @@ const plugins = () => {
                             ['jpegtran', { progressive: true }],
                             ['optipng', { optimizationLevel: 5 }],
                             // Svgo configuration here https://github.com/svg/svgo#configuration
-                            // [
-                            //     'svgo',
-                            //     {
-                            //         plugins: {
-                            //             name: 'preset-default',
-                            //             params: {
-                            //                 overrides: {
-                            //                     inlineStyles: {
-                            //                         onlyMatchedOnce: false,
-                            //                     },
-                            //
-                            //                     // or disable plugins
-                            //                     removeDoctype: false,
-                            //                 }
-                            //             }
-                            //         }
-                            //     },
-                            // ],
+                            [
+                                'svgo',
+                                {
+                                    plugins: ['preset-default'],
+                                },
+                            ],
                         ],
                     },
                 },
@@ -97,6 +132,9 @@ const plugins = () => {
 
 module.exports = {
     context: path.resolve(__dirname, 'src'),
+    // performance: { // отключение предупреждений для сборки
+    //     hints: false,
+    // },
     mode: 'development',
     entry: './js/main.js',
     output: {
