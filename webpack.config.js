@@ -139,7 +139,9 @@ module.exports = {
     entry: './js/main.js',
     output: {
         filename: `./js/${filename('js')}`,
-        path: path.resolve(__dirname, 'dist'),
+        path: isProd
+            ? path.resolve(__dirname, 'build')
+            : path.resolve(__dirname, 'dist'),
         publicPath: '',
     },
     devServer: {
