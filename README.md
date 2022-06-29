@@ -3,11 +3,12 @@
 * используется [Normalize](https://necolas.github.io/normalize.css/)
 * используется препроцессор [SCSS](https://sass-lang.com/)
 * используется [Autoprefixer](https://github.com/postcss/autoprefixer)
+* после сборки CSS @media группируются в конце файла
 * используется [Webpack](https://webpack.js.org/) для сборки JavaScript-модулей
-* для css используется линтер [Stylelint](https://stylelint.io)
+* для CSS используется линтер [Stylelint](https://stylelint.io)
 * для форматирования JS установлен [Prettier](https://prettier.io)
-* для html установлен, но не подключен [Pug](https://pugjs.org/api/getting-started.html)
-* **prettier** и **stylelint** нужно настроить для работы в IDE отдельно
+* для HTML установлен, но не подключен [Pug](https://pugjs.org/api/getting-started.html)
+* **prettier** и **stylelint** установленны, но нужно настроить для работы в IDE отдельно
 
 ## Установка
 * установка пакетов, введите команду: ```npm i``` (режим разработки)
@@ -64,7 +65,7 @@ start-webpack-base
 //     loader: 'pug-loader',
 // },
 ```
-* поменять местами закомментированные строки
+* и поменять местами закомментированные строки
 ```html
 template: path.resolve(__dirname, './src/index.html'),
 // template: path.resolve(__dirname, './src/index.pug'),

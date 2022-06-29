@@ -9,6 +9,18 @@ body {
   background: red;
 }
 
+@media (min-width: 375px) {
+  body {
+    background: blue;
+  }
+}
+
 #div {
   transform: rotate(30deg);
+}
+
+@media (min-width: 375px) {
+  #div {
+    transform: rotate(50deg);
+  }
 }

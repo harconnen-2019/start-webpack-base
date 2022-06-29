@@ -140,6 +140,7 @@ module.exports = {
                     {
                         loader: 'postcss-loader',
                     },
+                    'group-css-media-queries-loader',
                 ],
             },
             {
@@ -162,6 +163,7 @@ module.exports = {
                     {
                         loader: 'postcss-loader',
                     },
+                    'group-css-media-queries-loader',
                     'sass-loader',
                 ],
             },
