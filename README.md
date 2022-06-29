@@ -5,6 +5,7 @@
 * используется [Autoprefixer](https://github.com/postcss/autoprefixer)
 * после сборки CSS @media группируются в конце файла
 * Генерируется favicon, manifest  и др. [Favicons](https://github.com/jantimon/favicons-webpack-plugin)
+* Все изображения оптимизируются при сборке
 * используется [Webpack](https://webpack.js.org/) для сборки JavaScript-модулей
 * для CSS используется линтер [Stylelint](https://stylelint.io)
 * для форматирования JS установлен [Prettier](https://prettier.io)
@@ -111,9 +112,4 @@ template: path.resolve(__dirname, './src/index.html'),
 ```
 * файл ```index.html``` переименовать в ```index.pug```
 
-
-## Планируется добавить
-
-https://www.npmjs.com/package/svg-sprite-loader
-свг спрайты
 
